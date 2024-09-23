@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "CustomFont";
+  src: url("/assets/fonts/font.otf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
