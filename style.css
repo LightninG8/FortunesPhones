@@ -8,3 +8,324 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #d2d5da;
+}
+
+.container {
+  position: relative;
+
+  max-width: 450px;
+  max-height: 1000px;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container__bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  background-image: url("./assets/img/bg.png");
+  background-position: center top;
+  background-size: cover;
+}
+
+.page__title {
+  position: relative;
+  top: 13%;
+  font-family: "CustomFont";
+  font-size: 35px;
+  text-align: center;
+  line-height: 1em;
+}
+
+.phones__bg img {
+  max-width: 100%;
+}
+
+.phones__container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.phones__phone {
+  /* max-width: 60px; */
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;;
+}
+
+.phone__body {
+  position: relative;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+.phone__handset {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  pointer-events: none;
+  transition: 0.2s;
+
+}
+
+/* PHONE 1 */
+.phone-1 {
+  top: 4.96%;  /* (12 / 242) * 100 */
+  left: 7.96%; /* (33 / 414) * 100 */
+}
+
+.phone-1 .phone__body {
+  width: 52px;
+}
+
+.phone-1 .phone__handset {
+  top: -2px;
+  left: -2.5px;
+  
+  width: 55px;
+}
+
+/* PHONE 2 */
+.phone-2 {
+  top: 7.44%;  /* (18 / 242) * 100 */
+  left: 34.3%;  /* (142 / 414) * 100 */
+}
+
+.phone-2 .phone__body {
+  width: 46px;
+}
+
+.phone-2 .phone__handset {
+  top: -5px;
+  left: -9.5px;
+
+  width: 63px;
+}
+
+/* PHONE 3 */
+.phone-3 {
+  top: 9.09%;  /* (22 / 242) * 100 */
+  left: 57.21%; /* (237 / 414) * 100 */
+}
+
+.phone-3 .phone__body {
+  width: 44px;
+}
+
+.phone-3 .phone__handset {
+  top: -7px;
+  left: -7px;
+
+  width: 55px;
+}
+
+/* PHONE 4 */
+.phone-4 {
+  top: 7.44%;  /* (18 / 242) * 100 */
+  left: 81.48%; /* (337 / 414) * 100 */
+}
+
+.phone-4 .phone__body {
+  width: 47px;
+}
+
+.phone-4 .phone__handset {
+  top: -3px;
+  left: -6px;
+
+  width: 56px;
+}
+
+/* PHONE 5 */
+.phone-5 {
+  top: 41.32%; /* (100 / 242) * 100 */
+  left: 4.83%;  /* (20 / 414) * 100 */
+}
+
+.phone-5 .phone__body {
+  width: 52px;
+}
+
+.phone-5 .phone__handset {
+  top: -3px;
+  left: -3px;
+
+  width: 55px;
+}
+
+/* PHONE 6 */
+.phone-6 {
+  top: 43.40%; /* (105 / 242) * 100 */
+  left: 33.10%; /* (137 / 414) * 100 */
+}
+
+.phone-6 .phone__body {
+  width: 46px;
+}
+
+.phone-6 .phone__handset {
+  top: -3px;
+  left: -9px;
+
+  width: 63px;
+}
+
+/* PHONE 7 */
+.phone-7 {
+  top: 44.64%; /* (108 / 242) * 100 */
+  left: 60.83%; /* (252 / 414) * 100 */
+}
+
+.phone-7 .phone__body {
+  width: 44px;
+}
+
+.phone-7 .phone__handset {
+  top: -7px;
+  left: -6.5px;
+
+  width: 53px;
+}
+
+/* PHONE 8 */
+.phone-8 {
+  top: 44.64%; /* (108 / 242) * 100 */
+  left: 85.92%; /* (356 / 414) * 100 */
+}
+
+.phone-8 .phone__body {
+  width: 44px;
+}
+
+.phone-8 .phone__handset {
+  top: -7px;
+  left: -12.5px;
+
+  width: 60px;
+}
+
+
+
+/* АНИМАЦИИ */
+.page__title {
+  animation: fadeInDown 1s forwards;
+}
+
+.phones__container {
+  animation: fadeInUpConst 1s forwards;
+}
+
+.container__bg {
+  animation: fadeIn 1s forwards;
+}
+
+.phone:not(.active) .phone__handset {
+  animation: vibrate 0.5s infinite;
+}
+
+.phone.active .phone__handset {
+  animation: getCall 0.5s forwards;
+}
+
+.phone-1 .phone__handset {
+  animation-delay: 0.3s;
+}
+
+.phone-2 .phone__handset {
+  animation-delay: 0;
+}
+
+.phone-3 .phone__handset {
+  animation-delay: 0.7s;
+}
+
+.phone-4 .phone__handset {
+  animation-delay: 0.5s;
+}
+
+.phone-5 .phone__handset {
+  animation-delay: 0.1s;
+}
+
+.phone-6 .phone__handset {
+  animation-delay: 0.6s;
+}
+
+.phone-7 .phone__handset {
+  animation-delay: 0.2s;
+}
+
+.phone-8 .phone__handset {
+  animation-delay: 0;
+}
+
+
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page__popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s;
+}
+
+.popup__close {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+
+  width: 25px;
+  height: 25px;
+
+  cursor: pointer;
+}
+
+.popup__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #000;
+  opacity: 0.55;
+}
+
+.popup__image-container {
+  max-width: 300px;
+  padding: 50px;
+  position: relative;
+  background: #ffffff;
+  z-index: 2;
+}
+
+.popup__text {
+  font-size: 25px;
+  font-family: sans-serif;
+}
