@@ -12,7 +12,7 @@
         return;
       }
 
-      tg?.MainButton.setText("Закрыть")
+      tg?.MainButton.setText("Забрать подарок")
         .show()
         .onClick(function () {
           tg.close();
