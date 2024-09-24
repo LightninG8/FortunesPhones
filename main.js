@@ -16,6 +16,7 @@
         .show()
         .onClick(function () {
           tg.close();
+          webviewClose();
         });
     }
 
