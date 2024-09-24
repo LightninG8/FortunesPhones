@@ -15,7 +15,7 @@
       tg?.MainButton.setText("Закрыть")
         .show()
         .onClick(function () {
-          webviewClose();
+          tg.close();
         });
     }
 
