@@ -1,15 +1,14 @@
 (() => {
   setTimeout(async () => {
     // ---------- Получение переменных пользователя ----------
-    let isGetPrize = true;
 
     const urlParams = new URLSearchParams(window.location.search);
     const clientId = +urlParams.get("id") || 546082827;
 
     const userVariables = await getUserVariables(clientId);
-    isGetPrize = false;
 
-    console.log(userVariables);
+    let isGetPrize = userVariables ? false : true;
+
     let { a1, a2, a3, a4, a5, a6, a7, a8, availableSpins, dealSpins } =
       userVariables;
 
@@ -138,7 +137,8 @@
 
       setTimeout(async () => {
         showPrizePopup(prizeId);
-        await sendPrizeToBot(prizeId);
+        const result = await sendPrizeToBot(prizeId);
+        console.log(result);
         setSpinsCount();
       }, 800);
     }
