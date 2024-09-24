@@ -1,5 +1,24 @@
 (() => {
   setTimeout(async () => {
+    // ---------- TG WEB APP ----------
+    const tg = window.Telegram?.WebApp;
+
+    if (tg) {
+      tg.expand();
+    }
+
+    function showBackButton() {
+      if (!tg) {
+        return;
+      }
+
+      tg?.MainButton.setText("Закрыть")
+        .show()
+        .onClick(function () {
+          webviewClose();
+        });
+    }
+
     // ---------- Получение переменных пользователя ----------
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -140,8 +159,8 @@
 
       setTimeout(async () => {
         showPrizePopup(prizeId);
-        const result = await sendPrizeToBot(prizeId);
-        console.log(result);
+        showBackButton();
+        await sendPrizeToBot(prizeId);
         setSpinsCount();
       }, 800);
     }
