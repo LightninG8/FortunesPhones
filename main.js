@@ -102,7 +102,7 @@
     // отправляем подарок в бота
     async function sendPrizeToBot(prizeIndex) {
       return await fetch(
-        "https://chatter.salebot.pro/api/9368973327ee5f9f2c30ead8b0d34c7c/callback",
+        "https://chatter.salebot.pro/api/da37e22b33eb13cc4cabaa04dfe21df9/callback",
         {
           method: "POST",
           body: JSON.stringify({
@@ -116,7 +116,7 @@
     // получаем переменные
     async function getUserVariables(id) {
       return await fetch(
-        `https://chatter.salebot.pro/api/9368973327ee5f9f2c30ead8b0d34c7c/get_variables?client_id=${id}`
+        `https://chatter.salebot.pro/api/da37e22b33eb13cc4cabaa04dfe21df9/get_variables?client_id=${id}`
       ).then((body) => body.json());
     }
 
