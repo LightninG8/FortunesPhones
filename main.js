@@ -1,45 +1,43 @@
-(() => {
+(async () => {
   // ---------- Получение переменных пользователя ----------
-  // let availableSpins = +availableSpinsElem.textContent || 0;
-  // let dealSpins = +dealSpinsElem.textContent || 0;
+  let isGetPrize = true;
+
   const urlParams = new URLSearchParams(window.location.search);
-  let availableSpins = +urlParams.get("a") || 0;
-  let dealSpins = +urlParams.get("d") || 0;
-  const clientId = +urlParams.get("c") || 0;
-  const a1 = +urlParams.get("a1") || 10;
-  const a2 = +urlParams.get("a2") || 8;
-  const a3 = +urlParams.get("a3") || 5;
-  const a4 = +urlParams.get("a4") || 1;
-  const a5 = +urlParams.get("a5") || 15;
-  const a6 = +urlParams.get("a6") || 3;
-  const a7 = +urlParams.get("a7") || 10000000000;
-  const a8 = +urlParams.get("a8") || 1;
+  const clientId = +urlParams.get("id") || 546082827;
+
+  const userVariables = await getUserVariables(clientId);
+  isGetPrize = false;
+
+  console.log(userVariables);
+  let { a1, a2, a3, a4, a5, a6, a7, a8, availableSpins, dealSpins } =
+    userVariables;
+
 
   // список призов
   const prizes = [
     {
       text: "Напечатанный Ежедневник",
-      dropChance: a1 > 0 ? 5 : 0,
+      dropChance: +a1 > 0 ? 5 : 0,
     },
     {
       text: "Карты для пар",
-      dropChance: a2 > 0 ? 8 : 0,
+      dropChance: +a2 > 0 ? 8 : 0,
     },
     {
       text: "Скидка 50% на курс «Говорим откровенно»",
-      dropChance: a3 > 0 ? 3 : 0,
+      dropChance: +a3 > 0 ? 3 : 0,
     },
     {
       text: "Консультация с Джемой",
-      dropChance: a4 > 0 ? 1 : 0,
+      dropChance: +a4 > 0 ? 1 : 0,
     },
     {
       text: "Доступ в Семью на месяц для вас или вашего друга",
-      dropChance: a5 > 0 ? 5 : 0,
+      dropChance: +a5 > 0 ? 5 : 0,
     },
     {
       text: "Сертификат в SPA",
-      dropChance: a6 > 0 ? 5 : 0,
+      dropChance: +a6 > 0 ? 5 : 0,
     },
     {
       text: "Видео про коммуникацию (безлимит)",
@@ -47,7 +45,7 @@
     },
     {
       text: "Офлайн встреча в Москве с Джемой",
-      dropChance: a8 > 0 ? 2 : 0,
+      dropChance: +a8 > 0 ? 2 : 0,
     },
   ];
 
@@ -82,39 +80,66 @@
     return current;
   }
 
+  // ---------- Первоначальные настройки ----------
+  // Если нет вращений
+  if (availableSpins <= 0) {
+    isGetPrize = true;
+    document.body.classList.add("no-spin");
+  }
+
+  function setSpinsCount() {
+    availableSpins -= 1;
+    dealSpins += 1;
+
+    if (availableSpins <= 0) {
+      isGetPrize = true;
+      document.body.classList.add("no-spin");
+    }
+  }
+
+  // отправляем подарок в бота
+  async function sendPrizeToBot(prizeIndex) {
+    return await fetch(
+      "https://chatter.salebot.pro/api/9368973327ee5f9f2c30ead8b0d34c7c/callback",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          message: `приз_${prizeIndex + 1}`,
+          client_id: clientId,
+        }),
+      }
+    );
+  }
+
+  // получаем переменные
+  async function getUserVariables(id) {
+    return await fetch(
+      `https://chatter.salebot.pro/api/9368973327ee5f9f2c30ead8b0d34c7c/get_variables?client_id=${id}`
+    ).then((body) => body.json());
+  }
+
   // ---------- Попап----------
   function showPrizePopup(index) {
     popupElem.classList.remove("hide");
-    popupTextElem.textContent = prizes[index].text;
+    document.querySelector(`.prize-${index + 1}`).classList.remove("hide");
+    console.log(prizes[index]);
   }
 
   // ---------- Функции обработчиков событий ----------
-  let getPrize = false;
-
   function onPhoneClick(e) {
-    if (getPrize) {
+    if (isGetPrize) {
       return;
     }
-    getPrize = true;
+    isGetPrize = true;
 
     e.target.classList.add("active");
 
     const prizeId = dropPrize(prizes);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       showPrizePopup(prizeId);
-
-      // отправляем подарок в бота
-      fetch(
-        "https://chatter.salebot.pro/api/<key>/callback",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            message: `${prizeIndex}`,
-            client_id: clientId,
-          }),
-        }
-      );
+      await sendPrizeToBot(prizeId);
+      setSpinsCount();
     }, 800);
   }
 
