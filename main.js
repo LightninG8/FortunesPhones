@@ -7,6 +7,7 @@
 
     const userVariables = await getUserVariables(clientId);
 
+    console.log(clientId);
     let isGetPrize = userVariables ? false : true;
 
     let { a1, a2, a3, a4, a5, a6, a7, a8, availableSpins, dealSpins } =
