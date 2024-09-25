@@ -27,13 +27,12 @@
 
     const userVariables = await getUserVariables(clientId);
 
-    console.log(clientId);
-    console.log(userVariables);
-
     let isGetPrize = userVariables ? false : true;
 
-    let { a1, a2, a3, a4, a5, a6, a7, a8, availableSpins, dealSpins } =
+    let { a1, a2, a3, a4, a5, a6, a7, a8} =
       userVariables;
+    let availableSpins = userVariables.available_spins;
+    let dealSpins = userVariables.deal_spins
 
     // список призов
     const prizes = [
