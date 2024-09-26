@@ -106,6 +106,7 @@
     if (availableSpins <= 0) {
       isGetPrize = true;
       document.body.classList.add("no-spin");
+      showPrizePopup("no-spin");
     }
 
     function setSpinsCount() {
@@ -142,7 +143,7 @@
     // ---------- Попап----------
     function showPrizePopup(index) {
       popupElem.classList.remove("hide");
-      document.querySelector(`.prize-${index + 1}`).classList.remove("hide");
+      document.querySelector(`.prize-${index == "no-spin" ? index : index + 1}`).classList.remove("hide");
       console.log(prizes[index]);
     }
 
